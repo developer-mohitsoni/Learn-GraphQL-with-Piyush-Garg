@@ -8,7 +8,30 @@ const cors = require("cors");
 const startServer = async () => {
   const app = express();
 
-  const server = new ApolloServer({});
+  const server = new ApolloServer({
+    typeDefs: `
+        type Todo {
+            id: ID!
+            title: String!
+            completed: Boolean
+        }
+
+        type Query {
+            getTodos: [Todo]
+        }
+    `,
+    resolvers: {
+      Query: {
+        getTodos: () => [
+          {
+            id: 1,
+            title: "Hello World",
+            completed: false,
+          },
+        ],
+      },
+    },
+  });
 
   app.use(bodyParser.json());
   app.use(cors());
