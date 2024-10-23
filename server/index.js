@@ -21,3 +21,5 @@ const startServer = async () => {
     console.log("Server started on http://localhost:8000/graphql");
   });
 };
+
+start();
