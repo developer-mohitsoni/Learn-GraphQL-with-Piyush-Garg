@@ -1,4 +1,5 @@
 import { useQuery, gql } from "@apollo/client";
+import { FaSpinner } from "react-icons/fa"; // Import spinner icon
 
 const GET_TODOS = gql`
   query GetTodos {
@@ -21,8 +22,20 @@ const GET_TODOS = gql`
 const Todos = () => {
   const { loading, error, data } = useQuery(GET_TODOS);
 
-  if (loading) return <p className="text-blue-500">Loading...</p>;
-  if (error) return <p className="text-red-500">Error: {error.message}</p>;
+  if (loading)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="flex flex-col items-center">
+          <FaSpinner className="animate-spin text-blue-500 text-5xl mb-4" />
+          <p className="text-xl font-semibold text-gray-600">
+            Fetching Todos...
+          </p>
+        </div>
+      </div>
+    );
+
+  if (error)
+    return <p className="text-red-500 text-center">Error: {error.message}</p>;
 
   return (
     <div className="max-w-3xl mx-auto my-10 p-6 bg-white shadow-lg rounded-lg">
@@ -82,7 +95,7 @@ const Todos = () => {
           ))}
         </ul>
       ) : (
-        <p className="text-gray-500">No todos found.</p>
+        <p className="text-gray-500 text-center">No todos found.</p>
       )}
     </div>
   );
