@@ -11,7 +11,16 @@ const startServer = async () => {
 
   const typeDefs = `
   #graphql
-  
+
+    type User{
+        id: ID!
+        name: String!
+        username: String!
+        email: String!
+        phone: String!
+        website: String!
+    }
+
     type Todo {
       id: ID!
       title: String!
@@ -19,7 +28,8 @@ const startServer = async () => {
     }
 
     type Query {
-      getTodos: [Todo]!
+      getTodos: [Todo]
+      getAllUsers: [User]
     }
   `;
 
@@ -29,6 +39,14 @@ const startServer = async () => {
         const response = await axios.get(
           "https://jsonplaceholder.typicode.com/todos"
         );
+
+        return response.data;
+      },
+      getAllUsers: async () => {
+        const response = await axios.get(
+          "https://jsonplaceholder.typicode.com/users"
+        );
+
         return response.data;
       },
     },
