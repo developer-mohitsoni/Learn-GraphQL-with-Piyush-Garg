@@ -12,8 +12,8 @@ app.use(cors());
 
 // Start the Apollo Server
 const startApolloServer = async () => {
-  await apolloServer.start();
-  app.use("/graphql", expressMiddleware(apolloServer));
+	await apolloServer.start();
+	app.use("/graphql", expressMiddleware(apolloServer));
 };
 
 module.exports = { app, startApolloServer };
